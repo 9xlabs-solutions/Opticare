@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCheckupSchedulesTable extends Migration
+class CreateProductSalesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateCheckupSchedulesTable extends Migration
      */
     public function up()
     {
-        Schema::create('checkup_schedules', function (Blueprint $table) {
+        Schema::create('product_sales', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('request_by', ['USER', 'OPTICIAN']);
+            $table->unsignedInteger('product_id');
             $table->unsignedInteger('patient_id');
             $table->unsignedInteger('optician_id');
-            $table->unsignedInteger('checkup_id')->nullable();
-            $table->dateTime('diagnosed_date')->nullable();
-            $table->string('note')->nullable();
-            $table->boolean('is_confirmed')->default(false);
+            $table->date('warranty');
             $table->timestamps();
         });
     }
@@ -33,6 +30,6 @@ class CreateCheckupSchedulesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('checkup_schedules');
+        Schema::dropIfExists('product_sales');
     }
 }
